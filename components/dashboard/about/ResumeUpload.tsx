@@ -1,0 +1,49 @@
+"use client";
+
+import { FileText } from "lucide-react";
+
+interface ResumeUploadProps {
+  resume: string;
+  onChange: (resume: string) => void;
+}
+
+export default function ResumeUpload({ resume, onChange }: ResumeUploadProps) {
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    // Temporary preview (will be replaced with a real upload later)
+    const previewUrl = URL.createObjectURL(file);
+
+    onChange(previewUrl);
+  }
+
+  return (
+    <div className="rounded-xl border border-dashed p-8">
+      <label className="mb-4 block font-medium">Resume (PDF)</label>
+
+      {resume && (
+        <div className="mb-4 flex items-center gap-2 rounded-lg bg-slate-100 p-3 dark:bg-slate-800">
+          <FileText className="text-orange-500" size={20} />
+
+          <a
+            href={resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="truncate text-sm text-blue-600 hover:underline dark:text-blue-400"
+          >
+            View Selected Resume
+          </a>
+        </div>
+      )}
+
+      <input
+        type="file"
+        accept=".pdf"
+        onChange={handleFileChange}
+        className="w-full"
+      />
+    </div>
+  );
+}
