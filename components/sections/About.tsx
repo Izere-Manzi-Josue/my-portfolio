@@ -3,7 +3,7 @@ import Tittle from "../ui/Tittle";
 
 export default function About() {
   return (
-    <section id="about" className="mt-8 px-6 py-12 lg:px-16">
+    <section id="about" className="mt-8 px-6 py-12 lg:px-11">
       <Tittle title="ABOUT ME" />
       <p className="leading-7 text-slate-600 dark:text-slate-400 mb-4">
         I’m a Junior Software Developer passionate about building responsive,

@@ -15,7 +15,7 @@ export default function PortfolioLayout() {
   return (
     <main className="min-h-screen bg-white text-slate-900 transition-colors duration-300 dark:bg-[#0f182c] dark:text-slate-100">
       <MouseGlow />
-      <div className="mx-auto flex max-w-7xl flex-col lg:flex-row">
+      <div className="mx-auto flex max-w-7xl flex-col lg:flex-row" id="top">
         <Sidebar />
 
         <div className="flex-1 space-y-20">
