@@ -63,7 +63,7 @@ export default function Contact() {
       <article className="group rounded-xl border border-transparent px-5 py-5 transition-all duration-300 hover:bg-slate-100/50 dark:hover:bg-slate-800 lg:px-6">
         <div className="max-w-3xl">
           <h3 className="text-2xl font-semibold transition-colors duration-300 group-hover:text-orange-500">
-            Let's Work Together
+            Let&#39;s Work Together
           </h3>
 
           <form onSubmit={handleSubmit} className="mt-4 space-y-2">

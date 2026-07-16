@@ -8,15 +8,27 @@ interface ResumeUploadProps {
 }
 
 export default function ResumeUpload({ resume, onChange }: ResumeUploadProps) {
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    // Temporary preview (will be replaced with a real upload later)
-    const previewUrl = URL.createObjectURL(file);
+    const formData = new FormData();
+    formData.append("file", file);
 
-    onChange(previewUrl);
+    const response = await fetch("/api/upload/resume", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      alert("Upload failed");
+      return;
+    }
+
+    const data = await response.json();
+
+    onChange(data.url);
   }
 
   return (

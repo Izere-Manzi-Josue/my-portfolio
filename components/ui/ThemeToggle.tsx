@@ -2,17 +2,20 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+function useMounted() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
 
 export default function ThemeToggle() {
+  const mounted = useMounted();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Don't render until mounted on the client
   if (!mounted) {
     return (
       <button className="rounded-full p-2">
@@ -23,7 +26,9 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      onClick={() =>
+        setTheme(resolvedTheme === "dark" ? "light" : "dark")
+      }
       className="rounded-full p-2"
     >
       {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}

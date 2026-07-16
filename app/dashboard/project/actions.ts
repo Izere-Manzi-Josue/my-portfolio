@@ -6,22 +6,39 @@ import { redirect } from "next/navigation";
 
 type ProjectData = {
   title: string;
-  slug: string;
   description: string;
   image: string;
-  github: string | null;
-  liveUrl: string | null;
+  github: string;
+  liveUrl: string;
   technologies: string[];
   featured: boolean;
 };
 
+const generateSlug = (title: string) =>
+  title
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
+
 export async function createProject(data: ProjectData) {
   await prisma.project.create({
-    data,
+    data: {
+      title: data.title,
+      description: data.description,
+      image: data.image,
+      github: data.github,
+      liveUrl: data.liveUrl,
+      technologies: data.technologies,
+      featured: data.featured,
+      slug: generateSlug(data.title),
+    },
   });
 
-  revalidatePath("/dashboard/projects");
-  redirect("/dashboard/projects");
+  revalidatePath("/dashboard/project");
+  revalidatePath("/");
+
+  redirect("/dashboard/project");
 }
 
 export async function updateProject(id: number, data: ProjectData) {
@@ -29,11 +46,22 @@ export async function updateProject(id: number, data: ProjectData) {
     where: {
       id,
     },
-    data,
+    data: {
+      title: data.title,
+      description: data.description,
+      image: data.image,
+      github: data.github,
+      liveUrl: data.liveUrl,
+      technologies: data.technologies,
+      featured: data.featured,
+      slug: generateSlug(data.title),
+    },
   });
 
-  revalidatePath("/dashboard/projects");
-  redirect("/dashboard/projects");
+  revalidatePath("/dashboard/project");
+  revalidatePath("/");
+
+  redirect("/dashboard/project");
 }
 
 export async function deleteProject(id: number) {
@@ -43,5 +71,6 @@ export async function deleteProject(id: number) {
     },
   });
 
-  revalidatePath("/dashboard/projects");
+  revalidatePath("/dashboard/project");
+  revalidatePath("/");
 }

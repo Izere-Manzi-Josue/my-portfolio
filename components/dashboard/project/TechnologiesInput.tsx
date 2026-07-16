@@ -3,9 +3,16 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 
-export default function TechnologiesInput() {
+interface TechnologiesInputProps {
+  technologies: string[];
+  onChange: (technologies: string[]) => void;
+}
+
+export default function TechnologiesInput({
+  technologies,
+  onChange,
+}: TechnologiesInputProps) {
   const [tech, setTech] = useState("");
-  const [technologies, setTechnologies] = useState<string[]>([]);
 
   const addTechnology = () => {
     const value = tech.trim();
@@ -14,12 +21,12 @@ export default function TechnologiesInput() {
 
     if (technologies.includes(value)) return;
 
-    setTechnologies([...technologies, value]);
+    onChange([...technologies, value]);
     setTech("");
   };
 
   const removeTechnology = (item: string) => {
-    setTechnologies(technologies.filter((t) => t !== item));
+    onChange(technologies.filter((t) => t !== item));
   };
 
   return (

@@ -3,8 +3,8 @@ export interface Project {
   title: string;
   description: string;
   image: string;
-  github: string;
-  live: string;
+  github: string | null;
+  liveUrl: string | null;
   technologies: string[];
-  status: "Published" | "Draft";
+  featured: boolean;
 }

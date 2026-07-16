@@ -1,6 +1,10 @@
 "use client";
+import dynamic from "next/dynamic";
 
-import ThemeToggle from "@/components/ui/ThemeToggle";
+const ThemeToggle = dynamic(() => import("@/components/ui/ThemeToggle"), {
+  ssr: false,
+});
+
 import { Bell, Search } from "lucide-react";
 
 interface DashboardNavbarProps {

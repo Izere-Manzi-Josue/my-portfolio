@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import FormSection from "./FormSection";
 import ImageUploader from "./ImageUploader";
 import TechnologiesInput from "./TechnologiesInput";
 import SaveActions from "./SaveActions";
 import { Project } from "@/types/project";
+import { createProject, updateProject } from "@/app/dashboard/project/actions";
 
 interface ProjectFormProps {
   mode: "create" | "edit";
@@ -13,28 +15,38 @@ interface ProjectFormProps {
 }
 
 export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
   const [project, setProject] = useState<Project>(
     initialData ?? {
       title: "",
       description: "",
       image: "",
       github: "",
-      live: "",
+      liveUrl: "",
       technologies: [],
-      status: "Draft",
+      featured: false,
     },
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (mode === "create") {
-      console.log("Creating Project...");
-    } else {
-      console.log("Updating Project...");
-    }
+    startTransition(async () => {
+      try {
+        if (mode === "create") {
+          await createProject(project);
+        } else {
+          await updateProject(project.id!, project);
+        }
 
-    console.log(project);
+        router.push("/dashboard/project");
+        router.refresh();
+      } catch (error) {
+        console.error(error);
+      }
+    });
   };
 
   return (
@@ -88,13 +100,21 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
       </FormSection>
 
       <FormSection title="Image" description="Upload project image.">
-        <ImageUploader />
+        <ImageUploader
+          image={project.image}
+          onChange={(image) =>
+            setProject({
+              ...project,
+              image,
+            })
+          }
+        />
       </FormSection>
 
       <FormSection title="Links" description="Project URLs.">
         <input
           placeholder="GitHub URL"
-          value={project.github}
+          value={project.github ?? ""}
           onChange={(e) =>
             setProject({
               ...project,
@@ -106,23 +126,34 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
 
         <input
           placeholder="Live URL"
-          value={project.live}
+          value={project.liveUrl ?? ""}
           onChange={(e) =>
             setProject({
               ...project,
-              live: e.target.value,
+              liveUrl: e.target.value,
             })
           }
           className="w-full rounded-xl border px-4 py-3"
         />
       </FormSection>
 
-      <FormSection title="Technologies" description="Technologies used.">
-        <TechnologiesInput />
+      <FormSection
+        title="Technologies"
+        description="Technologies used in this project."
+      >
+        <TechnologiesInput
+          technologies={project.technologies}
+          onChange={(technologies) =>
+            setProject({
+              ...project,
+              technologies,
+            })
+          }
+        />
       </FormSection>
 
       <SaveActions
-        loading={false}
+        loading={isPending}
         buttonText={mode === "create" ? "Create Project" : "Update Project"}
       />
     </form>

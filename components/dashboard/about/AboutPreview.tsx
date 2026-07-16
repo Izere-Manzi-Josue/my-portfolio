@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface AboutPreviewProps {
   name: string;
   jobTitle: string;
@@ -17,7 +19,9 @@ export default function AboutPreview({
     <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
       <div className="flex flex-col items-center text-center">
         {image ? (
-          <img
+          <Image
+            width={20}
+            height={20}
             src={image}
             alt={name || "Profile"}
             className="mb-6 h-40 w-40 rounded-full border-4 border-orange-500 object-cover"

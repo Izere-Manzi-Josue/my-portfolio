@@ -3,18 +3,11 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { PiArrowUpRightBold } from "react-icons/pi";
+import { Project } from "@/types/project";
 
 interface ProjectCardProps {
-  project: {
-    title: string;
-    description: string;
-    image: string;
-    technologies: string[];
-    github: string;
-    live: string;
-  };
+  project: Project;
 }
-
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group rounded-xl border border-transparent transition-all duration-300 hover:bg-slate-100/50 dark:hover:bg-slate-800">
@@ -33,11 +26,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Content */}
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-3">
           <div className="flex items-center gap-2">
             <Link
-              href={project.live}
-              target="_blank" className="text-xl font-semibold transition-colors duration-300 group-hover:text-orange-500 dark:text-white">
+              href={project.liveUrl || "#"}
+              target="_blank"
+              className="text-xl font-semibold transition-colors duration-300 group-hover:text-orange-500 dark:text-white"
+            >
               {project.title}
             </Link>
 
@@ -61,7 +56,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           <div className="flex gap-5 pt-2">
             <Link
-              href={project.github}
+              href={project.github || "#"}
               target="_blank"
               className="transition group-hover:text-orange-500"
             >
@@ -69,7 +64,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </Link>
 
             <Link
-              href={project.live}
+              href={project.liveUrl || "#"}
               target="_blank"
               className="transition group-hover:text-orange-500"
             >

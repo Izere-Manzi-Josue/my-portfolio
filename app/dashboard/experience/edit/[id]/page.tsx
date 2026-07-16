@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
-import ExperienceForm from "@/components/dashboard/experience/ExperienceForm";
 import { prisma } from "@/lib/prisma";
+import ExperienceForm from "@/components/dashboard/experience/ExperienceForm";
 
 interface Props {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditExperiencePage({ params }: Props) {

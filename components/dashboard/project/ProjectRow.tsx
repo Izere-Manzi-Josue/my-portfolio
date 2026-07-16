@@ -64,7 +64,7 @@ export default function ProjectRow({ project }: Props) {
           )}
 
           <Link
-            href={`/dashboard/projects/edit/${project.id}`}
+            href={`/dashboard/project/edit/${project.id}`}
             className="rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <Pencil size={18} />

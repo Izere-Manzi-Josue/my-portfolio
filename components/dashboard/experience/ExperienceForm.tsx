@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Experience } from "@prisma/client";
 import FormSection from "../project/FormSection";
@@ -28,8 +28,8 @@ export default function ExperienceForm({
   mode,
   initialData,
 }: ExperienceFormProps) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
-
   const [experience, setExperience] = useState<ExperienceFormData>(
     initialData
       ? {
@@ -72,17 +72,20 @@ export default function ExperienceForm({
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-    startTransition(async () => {
-      if (mode === "create") {
-        await createExperience(experience);
-      } else if (initialData) {
-        await updateExperience(initialData.id, experience);
-      }
-    });
-  };
+  startTransition(async () => {
+    if (mode === "create") {
+      await createExperience(experience);
+    } else if (initialData) {
+      await updateExperience(initialData.id, experience);
+    }
+
+    router.push("/dashboard/experience");
+    router.refresh();
+  });
+};
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
@@ -100,6 +103,7 @@ export default function ExperienceForm({
       >
         <div className="grid gap-5 md:grid-cols-2">
           <input
+            disabled={isPending}
             placeholder="Company"
             value={experience.company}
             onChange={(e) =>
@@ -112,6 +116,7 @@ export default function ExperienceForm({
           />
 
           <input
+            disabled={isPending}
             placeholder="Role"
             value={experience.role}
             onChange={(e) =>
@@ -124,6 +129,7 @@ export default function ExperienceForm({
           />
 
           <input
+            disabled={isPending}
             placeholder="Location"
             value={experience.location}
             onChange={(e) =>
@@ -136,6 +142,7 @@ export default function ExperienceForm({
           />
 
           <input
+            disabled={isPending}
             placeholder="Start Date"
             value={experience.startDate}
             onChange={(e) =>
@@ -148,6 +155,7 @@ export default function ExperienceForm({
           />
 
           <input
+            disabled={isPending}
             placeholder="End Date"
             value={experience.endDate}
             onChange={(e) =>
@@ -161,6 +169,7 @@ export default function ExperienceForm({
         </div>
 
         <textarea
+          disabled={isPending}
           rows={6}
           placeholder="Description"
           value={experience.description}
@@ -185,11 +194,11 @@ export default function ExperienceForm({
             placeholder="React"
             className="flex-1 rounded-xl border px-4 py-3"
           />
-
           <button
             type="button"
+            disabled={isPending}
             onClick={addTechnology}
-            className="rounded-xl bg-orange-500 px-5 text-white hover:bg-orange-600"
+            className="rounded-xl bg-orange-500 px-5 text-white hover:bg-orange-600 disabled:opacity-50"
           >
             Add
           </button>

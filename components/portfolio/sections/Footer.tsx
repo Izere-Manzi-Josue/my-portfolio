@@ -49,6 +49,12 @@ export default function Footer() {
           <ArrowUp size={18} />
         </a>
       </div>
+      <Link
+        href="/dashboard"
+        className="text-xs text-slate-400 hover:text-orange-500"
+      >
+        Admin Dashbaord
+      </Link>
     </footer>
   );
 }

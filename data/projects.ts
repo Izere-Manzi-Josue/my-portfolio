@@ -9,7 +9,7 @@ export const projects = [
     github: "https://github.com/yourusername/job-portal",
     live: "https://jobportal.vercel.app",
   },
-
+      
   {
     id: 2,
     title: "Hotel Booking Website",

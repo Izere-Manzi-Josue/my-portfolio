@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 type ExperienceData = {
   company: string;
@@ -16,49 +15,28 @@ type ExperienceData = {
 
 export async function createExperience(data: ExperienceData) {
   await prisma.experience.create({
-    data: {
-      company: data.company,
-      role: data.role,
-      location: data.location,
-      startDate: data.startDate,
-      endDate: data.endDate,
-      description: data.description,
-      technologies: data.technologies,
-    },
+    data,
   });
 
   revalidatePath("/dashboard/experience");
-
-  redirect("/dashboard/experience");
+  revalidatePath("/");
 }
 
 export async function updateExperience(id: number, data: ExperienceData) {
   await prisma.experience.update({
-    where: {
-      id,
-    },
-    data: {
-      company: data.company,
-      role: data.role,
-      location: data.location,
-      startDate: data.startDate,
-      endDate: data.endDate,
-      description: data.description,
-      technologies: data.technologies,
-    },
+    where: { id },
+    data,
   });
 
   revalidatePath("/dashboard/experience");
-
-  redirect("/dashboard/experience");
+  revalidatePath("/");
 }
 
 export async function deleteExperience(id: number) {
   await prisma.experience.delete({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   revalidatePath("/dashboard/experience");
+  revalidatePath("/");
 }

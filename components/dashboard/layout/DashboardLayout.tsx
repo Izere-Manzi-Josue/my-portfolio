@@ -16,9 +16,13 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <main className="flex min-h-screen bg-slate-100 dark:bg-slate-950">
-      <DashboardSidebar />
+      {/* Fixed Sidebar */}
+      <aside className="fixed left-0 top-0 h-screen w-72">
+        <DashboardSidebar />
+      </aside>
 
-      <div className="flex flex-1 flex-col">
+      {/* Main Content */}
+      <div className="ml-72 flex min-h-screen flex-1 flex-col">
         <DashboardNavbar user={user} />
 
         <section className="flex-1 overflow-y-auto p-8">{children}</section>

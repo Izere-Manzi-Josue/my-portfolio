@@ -25,7 +25,7 @@ export default async function About() {
 
       {/* cv button */}
       <a
-        href="/cv/IZERE_MANZI_Josue_Resume.pdf"
+        href={about.resume}
         download
         className="group mt-6 inline-flex items-center gap-2 rounded-xl border py-2 px-4 hover:border-orange-300 "
       >

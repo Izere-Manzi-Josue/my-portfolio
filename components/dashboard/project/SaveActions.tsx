@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface SaveActionsProps {
   loading?: boolean;
   buttonText: string;
@@ -6,9 +8,12 @@ interface SaveActionsProps {
 export default function SaveActions({ loading, buttonText }: SaveActionsProps) {
   return (
     <div className="flex justify-end gap-4">
-      <button type="button" className="rounded-xl border px-5 py-3">
+      <Link
+        href="/dashboard/experience"
+        className="rounded-xl border px-5 py-3"
+      >
         Cancel
-      </button>
+      </Link>
 
       <button
         type="submit"
