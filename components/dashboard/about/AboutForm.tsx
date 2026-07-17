@@ -1,32 +1,26 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { About } from "@prisma/client";
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { saveAbout } from "@/app/dashboard/about/actions";
 import ImageUpload from "./ImageUpload";
 import ResumeUpload from "./ResumeUpload";
 
+import { AboutFormData } from "./AboutEditor";
+
 interface AboutFormProps {
-  initialData: About | null;
+  form: AboutFormData;
+  setForm: React.Dispatch<React.SetStateAction<AboutFormData>>;
 }
 
-export default function AboutForm({ initialData }: AboutFormProps) {
+export default function AboutForm({
+  form,
+  setForm,
+}: AboutFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const [form, setForm] = useState({
-    name: initialData?.name ?? "",
-    jobTitle: initialData?.jobTitle ?? "",
-    shortIntro: initialData?.shortIntro ?? "",
-    description: initialData?.description ?? "",
-    profileImage: initialData?.profileImage ?? "",
-    resume: initialData?.resume ?? "",
-    github: initialData?.github ?? "",
-    linkedin: initialData?.linkedin ?? "",
-    email: initialData?.email ?? "",
-  });
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

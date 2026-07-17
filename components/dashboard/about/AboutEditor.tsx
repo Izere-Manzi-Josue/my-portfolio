@@ -36,7 +36,7 @@ export default function AboutEditor({ initialData }: Props) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <AboutForm initialData={initialData} />
+      <AboutForm form={form} setForm={setForm} />
       <AboutPreview
         name={form.name}
         jobTitle={form.jobTitle}

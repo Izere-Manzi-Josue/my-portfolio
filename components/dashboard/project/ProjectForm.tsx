@@ -35,10 +35,16 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
 
     startTransition(async () => {
       try {
+        const projectData = {
+          ...project,
+          github: project.github ?? "",
+          liveUrl: project.liveUrl ?? "",
+        };
+
         if (mode === "create") {
-          await createProject(project);
+          await createProject(projectData);
         } else {
-          await updateProject(project.id!, project);
+          await updateProject(project.id!, projectData);
         }
 
         router.push("/dashboard/project");
@@ -48,7 +54,6 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
       }
     });
   };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
       <div>

@@ -41,6 +41,13 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="w-full max-w-md space-y-5 rounded-xl bg-white p-8 shadow dark:bg-slate-900"
     >
+      {/* <button
+        type="button"
+        onClick={() => router.back()}
+        className="rounded-lg border px-4 py-2 hover:bg-gray-100 dark:hover:bg-slate-800"
+      >
+        ← Back
+      </button> */}
       <h1 className="text-3xl font-bold">Admin Login</h1>
 
       {error && <p className="text-red-500">{error}</p>}
