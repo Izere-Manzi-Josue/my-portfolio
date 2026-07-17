@@ -36,7 +36,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               {project.title}
             </Link>
 
-            <PiArrowUpRightBold className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-orange-500" />
+            <PiArrowUpRightBold className="transition-transform h-5 w-5 duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-orange-500" />
           </div>
 
           <p className="leading-5 text-slate-600 dark:text-slate-400">
