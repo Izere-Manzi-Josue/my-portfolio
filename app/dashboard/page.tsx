@@ -5,7 +5,7 @@ export default async function DashboardPage() {
   const [projects, experiences, Messages] = await Promise.all([
     prisma.project.count(),
     prisma.experience.count(),
-    prisma.message.count(),
+    prisma.contact.count(),
   ]);
 
   return (
