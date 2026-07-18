@@ -29,7 +29,7 @@ export default async function ContactPage() {
           </thead>
 
           <tbody>
-            {messages.map((message) => (
+            {messages.map((message: (typeof messages)[number]) => (
               <tr
                 key={message.id}
                 className="border-t border-slate-200 dark:border-slate-700"
