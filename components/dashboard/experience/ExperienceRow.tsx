@@ -1,8 +1,18 @@
 import Link from "next/link";
 import { Pencil } from "lucide-react";
-import { Experience } from "@prisma/client";
 import DeleteExperienceButton from "./DeleteExperienceButton";
 
+type Experience = {
+  id: number;
+  company: string;
+  role: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  technologies: string[];
+  createdAt: Date;
+};
 
 interface Props {
   experience: Experience;
