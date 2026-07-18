@@ -1,13 +1,26 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { Experience } from "@prisma/client";
+
 import FormSection from "../project/FormSection";
 import SaveActions from "../project/SaveActions";
 import {
   createExperience,
   updateExperience,
 } from "@/app/dashboard/experience/actions";
+
+type Experience = {
+  id: number;
+  company: string;
+  role: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  technologies: string[];
+  createdAt: Date;
+};
 
 interface ExperienceFormProps {
   mode: "create" | "edit";
@@ -30,6 +43,7 @@ export default function ExperienceForm({
 }: ExperienceFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
   const [experience, setExperience] = useState<ExperienceFormData>(
     initialData
       ? {
@@ -55,10 +69,13 @@ export default function ExperienceForm({
   const [technology, setTechnology] = useState("");
 
   const addTechnology = () => {
-    if (technology.trim() && !experience.technologies.includes(technology)) {
+    if (
+      technology.trim() &&
+      !experience.technologies.includes(technology.trim())
+    ) {
       setExperience({
         ...experience,
-        technologies: [...experience.technologies, technology],
+        technologies: [...experience.technologies, technology.trim()],
       });
 
       setTechnology("");
@@ -72,20 +89,20 @@ export default function ExperienceForm({
     });
   };
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  startTransition(async () => {
-    if (mode === "create") {
-      await createExperience(experience);
-    } else if (initialData) {
-      await updateExperience(initialData.id, experience);
-    }
+    startTransition(async () => {
+      if (mode === "create") {
+        await createExperience(experience);
+      } else if (initialData) {
+        await updateExperience(initialData.id, experience);
+      }
 
-    router.push("/dashboard/experience");
-    router.refresh();
-  });
-};
+      router.push("/dashboard/experience");
+      router.refresh();
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
@@ -194,6 +211,7 @@ const handleSubmit = (e: React.FormEvent) => {
             placeholder="React"
             className="flex-1 rounded-xl border px-4 py-3"
           />
+
           <button
             type="button"
             disabled={isPending}
