@@ -1,8 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { Message } from "@prisma/client";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 
 export default async function ContactPage() {
-  const messages = await prisma.message.findMany({
+  const messages: Message[] = await prisma.message.findMany({
     orderBy: {
       createdAt: "desc",
     },
