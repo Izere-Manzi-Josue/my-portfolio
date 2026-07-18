@@ -1,9 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { About } from "@prisma/client";
 import AboutForm from "./AboutForm";
 import AboutPreview from "./AboutPreview";
+
+type About = {
+  id: number;
+  name: string;
+  jobTitle: string;
+  shortIntro: string;
+  description: string;
+  profileImage: string;
+  resume: string;
+  github: string;
+  linkedin: string;
+  email: string;
+  updatedAt: Date;
+};
 
 interface Props {
   initialData: About | null;
