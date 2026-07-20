@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import type { Project } from "@/types/project";
 import ProjectCard from "../../ui/ProjectCard";
 import Tittle from "../../ui/Tittle";
 
 export default async function Projects() {
-  const projects = await prisma.project.findMany({
+  const projects: Project[] = await prisma.project.findMany({
     orderBy: {
       createdAt: "desc",
     },
@@ -19,7 +20,7 @@ export default async function Projects() {
         {projects.length === 0 ? (
           <p className="text-slate-500">No projects added yet.</p>
         ) : (
-          projects.map((project) => (
+          projects.map((project: Project) => (
             <ProjectCard key={project.id} project={project} />
           ))
         )}
