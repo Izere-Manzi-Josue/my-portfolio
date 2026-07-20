@@ -1,18 +1,7 @@
 import Link from "next/link";
 import { Pencil } from "lucide-react";
 import DeleteExperienceButton from "./DeleteExperienceButton";
-
-type Experience = {
-  id: number;
-  company: string;
-  role: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  technologies: string[];
-  createdAt: Date;
-};
+import type { Experience } from "@/types/experience";
 
 interface Props {
   experience: Experience;

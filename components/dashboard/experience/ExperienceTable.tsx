@@ -1,7 +1,5 @@
-import { Prisma } from "@prisma/client";
+import type { Experience } from "@/types/experience";
 import ExperienceRow from "./ExperienceRow";
-
-type Experience = Prisma.ExperienceGetPayload<{}>;
 
 interface ExperienceTableProps {
   experiences: Experience[];
