@@ -1,10 +1,11 @@
 import { prisma } from "@/lib/prisma";
+import type { Experience } from "@/types/experience";
 import { PiArrowUpRightBold } from "react-icons/pi";
 import Tittle from "../../ui/Tittle";
 import Link from "next/link";
 
-export default async function Experience() {
-  const experiences = await prisma.experience.findMany({
+export default async function ExperienceSection() {
+  const experiences: Experience[] = await prisma.experience.findMany({
     orderBy: {
       startDate: "desc",
     },
@@ -22,7 +23,7 @@ export default async function Experience() {
         </div>
       ) : (
         <Link href="#" target="_blank">
-          {experiences.map((experience) => (
+          {experiences.map((experience: Experience) => (
             <article
               key={experience.id}
               className="group rounded-xl border border-transparent px-6 py-5 transition-all duration-300 hover:bg-slate-100/50 dark:hover:bg-slate-800"
@@ -38,7 +39,6 @@ export default async function Experience() {
                   <div>
                     <h3 className="flex items-center gap-3 text-xl font-semibold text-slate-900 transition-colors group-hover:text-orange-500 dark:text-white">
                       {experience.role}
-
                       <PiArrowUpRightBold className="duration-300 group-hover:-translate-y-1" />
                     </h3>
 
