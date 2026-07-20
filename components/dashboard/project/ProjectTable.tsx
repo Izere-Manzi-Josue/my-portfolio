@@ -1,4 +1,4 @@
-import { Project } from "@prisma/client";
+import type { Project } from "@/types/project";
 import ProjectRow from "./ProjectRow";
 
 interface ProjectTableProps {

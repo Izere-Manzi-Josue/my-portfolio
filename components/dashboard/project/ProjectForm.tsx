@@ -6,7 +6,7 @@ import FormSection from "./FormSection";
 import ImageUploader from "./ImageUploader";
 import TechnologiesInput from "./TechnologiesInput";
 import SaveActions from "./SaveActions";
-import { Project } from "@/types/project";
+import type { Project, ProjectFormData } from "@/types/project";
 import { createProject, updateProject } from "@/app/dashboard/project/actions";
 
 interface ProjectFormProps {
@@ -18,16 +18,26 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const [project, setProject] = useState<Project>(
-    initialData ?? {
-      title: "",
-      description: "",
-      image: "",
-      github: "",
-      liveUrl: "",
-      technologies: [],
-      featured: false,
-    },
+  const [project, setProject] = useState<ProjectFormData>(
+    initialData
+      ? {
+          title: initialData.title,
+          description: initialData.description,
+          image: initialData.image,
+          github: initialData.github ?? "",
+          liveUrl: initialData.liveUrl ?? "",
+          technologies: initialData.technologies,
+          featured: initialData.featured,
+        }
+      : {
+          title: "",
+          description: "",
+          image: "",
+          github: "",
+          liveUrl: "",
+          technologies: [],
+          featured: false,
+        },
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,16 +45,10 @@ export default function ProjectForm({ mode, initialData }: ProjectFormProps) {
 
     startTransition(async () => {
       try {
-        const projectData = {
-          ...project,
-          github: project.github ?? "",
-          liveUrl: project.liveUrl ?? "",
-        };
-
         if (mode === "create") {
-          await createProject(projectData);
-        } else {
-          await updateProject(project.id!, projectData);
+          await createProject(project);
+        } else if (initialData) {
+          await updateProject(initialData.id, project);
         }
 
         router.push("/dashboard/project");

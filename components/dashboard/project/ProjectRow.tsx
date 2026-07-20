@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, Pencil } from "lucide-react";
-import { Project } from "@prisma/client";
+import type { Project } from "@/types/project";
 import DeleteProjectButton from "./DeleteProjectButton";
 
 
