@@ -12,6 +12,9 @@ import {
 import NavItem from "./NavItem";
 import LogoutButton from "../LogoutButton";
 
+interface DashboardSidebarProps {
+  onNavigate?: () => void;
+}
 
 const navItems = [
   {
@@ -46,26 +49,29 @@ const navItems = [
   },
 ];
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({
+  onNavigate,
+}: DashboardSidebarProps) {
   return (
     <aside className="flex h-screen w-72 flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
       {/* Logo */}
       <div className="border-b border-slate-200 p-6 dark:border-slate-800">
-        <Link href="/">
+        <Link href="/" onClick={onNavigate}>
           <h1 className="text-2xl font-bold text-orange-500">Portfolio CMS</h1>
-        </Link>
 
-        <p className="mt-1 text-sm text-slate-500">Manage your portfolio</p>
+          <p className="mt-1 text-sm text-slate-500">Manage your portfolio</p>
+        </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-2 p-4">
+      <nav className="flex-1 space-y-2 overflow-y-auto p-4">
         {navItems.map((item) => (
           <NavItem
             key={item.href}
             title={item.title}
             href={item.href}
             icon={item.icon}
+            onClick={onNavigate}
           />
         ))}
 

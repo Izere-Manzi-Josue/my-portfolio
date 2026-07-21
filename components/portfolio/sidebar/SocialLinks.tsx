@@ -7,7 +7,7 @@ export default function SocialLinks() {
   return (
     <div className="mt-8 flex items-center gap-6">
       <Link
-        href="https://github.com/yourusername"
+        href="https://github.com/Izere-Manzi-Josue"
         target="_blank"
         className="text-slate-500 transition hover:text-orange-500 duration-300"
       >
@@ -15,7 +15,7 @@ export default function SocialLinks() {
       </Link>
 
       <Link
-        href="https://linkedin.com/in/yourusername"
+        href="https://www.linkedin.com/in/izere-manzi-josue"
         target="_blank"
         className="text-slate-500 transition hover:text-orange-500 duration-300"
       >
@@ -23,15 +23,24 @@ export default function SocialLinks() {
       </Link>
 
       <Link
-        href="mailto:you@example.com"
+        href="mailto:izeremanzijosue2@gmail.com"
+        target="_black"
         className="text-slate-500 transition hover:text-orange-500 duration-300"
       >
         <Mail size={24} />
       </Link>
-      <Link href="/" className="text-slate-500 transition hover:text-orange-500 duration-300">
+      <Link
+        href="https://x.com/Izere_Manzi2"
+        target="_black"
+        className="text-slate-500 transition hover:text-orange-500 duration-300"
+      >
         <FaTwitter size={24} />
       </Link>
-      <Link href="/" className="text-slate-500 transition hover:text-orange-500 duration-300">
+      <Link
+        href="https://www.instagram.com/manzi_izere4"
+        target="_black"
+        className="text-slate-500 transition hover:text-orange-500 duration-300"
+      >
         <FaInstagram size={24} />
       </Link>
     </div>

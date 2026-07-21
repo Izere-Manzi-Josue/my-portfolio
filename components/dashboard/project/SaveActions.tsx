@@ -9,7 +9,7 @@ export default function SaveActions({ loading, buttonText }: SaveActionsProps) {
   return (
     <div className="flex justify-end gap-4">
       <Link
-        href="/dashboard/experience"
+        href="/dashboard"
         className="rounded-xl border px-5 py-3"
       >
         Cancel
