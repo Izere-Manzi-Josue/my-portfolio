@@ -83,7 +83,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="space-y-2 lg:px-5">
+    <section id="contact" className="space-y-2 p-1 lg:px-5">
       <div className="px-5 lg:px-6">
         <Tittle title="CONTACT" />
       </div>

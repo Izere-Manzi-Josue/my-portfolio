@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import type { Experience } from "@/types/experience";
 import Tittle from "../../ui/Tittle";
-import ExperienceList from "./ExperienceList";
+import ExperienceList from "../../ui/ExperienceList";
 
 export default async function ExperienceSection() {
   const experiences: Experience[] = await prisma.experience.findMany({

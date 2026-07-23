@@ -11,7 +11,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group rounded-xl border border-transparent transition-all duration-300 hover:bg-slate-100/50 dark:hover:bg-slate-800">
-      <div className="flex flex-col gap-6 lg:p-6 md:flex-row">
+      <div className="flex flex-col gap-6 p-1 lg:p-6 md:flex-row">
         {/* Image */}
         <div className="w-full md:w-1/3 lg:w-2/5">
           <div className="overflow-hidden rounded-xl">
@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             ))}
           </div>
 
-          <div className="flex gap-5 pt-2">
+          <div className="flex gap-5 pt-1 pb-5 md:pb-0">
             <Link
               href={project.github || "#"}
               target="_blank"

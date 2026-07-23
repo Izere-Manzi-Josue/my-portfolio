@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import type { Project } from "@/types/project";
 
 import Tittle from "../../ui/Tittle";
-import ProjectList from "./ProjectList";
+import ProjectList from "../../ui/ProjectList";
 
 export default async function Projects() {
   const projects: Project[] = await prisma.project.findMany({
