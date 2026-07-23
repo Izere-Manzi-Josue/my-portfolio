@@ -11,6 +11,16 @@ export default function Contact() {
     message: "",
   });
 
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | "";
+    message: string;
+  }>({
+    type: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -20,9 +30,15 @@ export default function Contact() {
     });
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setStatus({
+      type: "",
+      message: "",
+    });
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("/api/contact", {
@@ -36,11 +52,17 @@ export default function Contact() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.message);
+        setStatus({
+          type: "error",
+          message: data.message || "Failed to send your message.",
+        });
         return;
       }
 
-      alert("Message sent successfully!");
+      setStatus({
+        type: "success",
+        message: "Your message has been sent successfully!",
+      });
 
       setForm({
         name: "",
@@ -50,7 +72,13 @@ export default function Contact() {
       });
     } catch (error) {
       console.error(error);
-      alert("Something went wrong.");
+
+      setStatus({
+        type: "error",
+        message: "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,12 +94,26 @@ export default function Contact() {
             Let&#39;s Work Together
           </h3>
 
+          {/* Status Message */}
+          {status.message && (
+            <div
+              className={`mt-4 rounded-lg border px-4 py-3 text-sm font-medium ${
+                status.type === "success"
+                  ? "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-400"
+                  : "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400"
+              }`}
+            >
+              {status.message}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="mt-4 space-y-2">
             <input
               name="name"
               placeholder="Your Name"
               value={form.name}
               onChange={handleChange}
+              required
               className="w-full rounded-lg border border-slate-300 bg-transparent px-4 py-3 outline-none transition focus:border-orange-500 dark:border-slate-700"
             />
 
@@ -81,6 +123,7 @@ export default function Contact() {
               placeholder="Your Email"
               value={form.email}
               onChange={handleChange}
+              required
               className="w-full rounded-lg border border-slate-300 bg-transparent px-4 py-3 outline-none transition focus:border-orange-500 dark:border-slate-700"
             />
 
@@ -89,6 +132,7 @@ export default function Contact() {
               placeholder="Subject"
               value={form.subject}
               onChange={handleChange}
+              required
               className="w-full rounded-lg border border-slate-300 bg-transparent px-4 py-3 outline-none transition focus:border-orange-500 dark:border-slate-700"
             />
 
@@ -98,14 +142,16 @@ export default function Contact() {
               placeholder="Your Message"
               value={form.message}
               onChange={handleChange}
+              required
               className="w-full rounded-lg border border-slate-300 bg-transparent px-4 py-3 outline-none transition focus:border-orange-500 dark:border-slate-700"
             />
 
             <button
               type="submit"
-              className="group inline-flex items-center gap-2 rounded-xl border py-2 px-4 hover:bg-orange-500/20 text-orange-500 bg-orange-400/20 transition cursor-pointer dark:hover:bg-orange-500/20 duration-300 font-semibold "
+              disabled={isSubmitting}
+              className="group inline-flex items-center gap-2 rounded-xl border bg-orange-400/20 px-4 py-2 font-semibold text-orange-500 transition duration-300 hover:bg-orange-500/20 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>

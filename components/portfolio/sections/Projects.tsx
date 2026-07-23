@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import type { Project } from "@/types/project";
-import ProjectCard from "../../ui/ProjectCard";
+
 import Tittle from "../../ui/Tittle";
+import ProjectList from "./ProjectList";
 
 export default async function Projects() {
   const projects: Project[] = await prisma.project.findMany({
@@ -20,9 +21,7 @@ export default async function Projects() {
         {projects.length === 0 ? (
           <p className="text-slate-500">No projects added yet.</p>
         ) : (
-          projects.map((project: Project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))
+          <ProjectList projects={projects} />
         )}
       </div>
     </section>

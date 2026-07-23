@@ -7,10 +7,6 @@ export default function Footer() {
       <div className="flex flex-col items-center justify-between gap-6 text-center md:flex-row">
         {/* Left */}
         <div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            © {new Date().getFullYear()} Izere Manzi Josue. All rights reserved.
-          </p>
-
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             Designed & Built with{" "}
             <Link
@@ -38,6 +34,21 @@ export default function Footer() {
             </Link>
             .
           </p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            © {new Date().getFullYear()} Izere Manzi Josue. All rights reserved.
+          </p>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Email:izeremanzijosue2@gmail.com
+          </p>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Phone:0790194517
+          </p>
+          <Link
+            href="/dashboard"
+            className="text-xs text-slate-400 hover:text-orange-500"
+          >
+            Admin Dashbaord
+          </Link>
         </div>
 
         {/* Right */}
@@ -49,12 +60,6 @@ export default function Footer() {
           <ArrowUp size={18} />
         </a>
       </div>
-      <Link
-        href="/dashboard"
-        className="text-xs text-slate-400 hover:text-orange-500"
-      >
-        Admin Dashbaord
-      </Link>
     </footer>
   );
 }

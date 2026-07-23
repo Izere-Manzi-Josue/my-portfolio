@@ -15,7 +15,7 @@ export default function SocialLinks() {
       </Link>
 
       <Link
-        href="https://www.linkedin.com/in/izere-manzi-josue"
+        href="https://www.linkedin.com/in/izere-manzi-josue-3b5937401?utm_source=share_via&utm_content=profile&utm_medium=member_android"
         target="_blank"
         className="text-slate-500 transition hover:text-orange-500 duration-300"
       >
